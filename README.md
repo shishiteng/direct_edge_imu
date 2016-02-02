@@ -1,7 +1,7 @@
 # direct_edge_imu
 This is the webpage of our latest work about fusion of direct edge alignment and inertial measurements. We have a paper, namely 'Direct Edge Alignment-Based Visual-Inertial Fusion for Tracking of Aggressive Motions', submitted to "Autonomous Robots".
 
-We will release our source code if our journal paper is accepted. Our implementation is compatible with the standard driver of VI-Sensor and ROS version of indigo. OpenCV is needed.
+We will release our source code if our journal paper is accepted. Our implementation is compatible with the standard driver of VI-Sensor and ROS version of indigo. OpenCV and Eigen is needed.
 
 The high resolution video of our submitted paper is: http://1drv.ms/1QlCTbl
 
