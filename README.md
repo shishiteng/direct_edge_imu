@@ -7,7 +7,7 @@ The high resolution video of our submitted paper is: http://1drv.ms/1QlCTbl
 
 If you use our code, please cite our paper:
 
-[1] Yonggen Ling, Manohar Kuse, Shaojie Shen, "Direct Edge Alignment-Based Visual-Inertial Fusion for Tracking of Aggressive Motions", submitted to Autonomous Robots.
+[1] Yonggen Ling, Manohar Kuse, and Shaojie Shen, "Direct Edge Alignment-Based Visual-Inertial Fusion for Tracking of Aggressive Motions", submitted to Autonomous Robots.
 
 For more questions, please contact ylingaa at connect dot ust dot hk .
 
