@@ -3,7 +3,7 @@ This is the webpage of our latest work about fusion of direct edge alignment and
 
 We will release our source code if our journal paper is accepted. Our implementation is compatible with the standard driver of VI-Sensor and ROS version of indigo. OpenCV and Eigen are needed.
 
-The high resolution video of our submitted paper is: http://1drv.ms/1QlCTbl
+The high resolution video of our submitted paper is: http://1drv.ms/1TGrBmq
 
 If you use our code, please cite our paper:
 
