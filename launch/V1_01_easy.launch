@@ -32,7 +32,7 @@
     <param name="bias_a_x_0"				value= "-0.023601"/>
     <param name="bias_a_y_0"				value= "0.121044"/>
     <param name="bias_a_z_0"				value= "0.074783"/>
-    <param name="denseOrNot"				value= "false"/>
+    <param name="denseOrNot"				value= "true"/>
     <param name="edgeIterationNum"			value= "10"/>
     <param name="huber_r_v"			value= "0.5"/>
     <param name="huber_r_w"			value= "0.5"/>
