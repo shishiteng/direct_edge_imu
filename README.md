@@ -1,7 +1,9 @@
 This is the webpage of our work about visual-inertial fusion. It consists in part of the implementations in:
 
 [1] Yonggen Ling, Manohar Kuse, and Shaojie Shen, "Direct Edge Alignment-Based Visual-Inertial Fusion for Tracking of Aggressive Motions", Autonomous Robots, 2017.
+
 [2] Yonggen Ling, and Shaojie Shen, "Aggresive Quadrotor Flight Using Dense Visual-Inertial Fusion", in Proc. of the IEEE Intl. Conf. on Robot. and Autom., 2016.
+
 [3] Yonggen Ling, and Shaojie Shen, "Dense Visual-Inertial Odometry for Tracking of Aggressive Motions", in Proc. of the IEEE International Conference on Robotics and Biomimetics 2015.
 
 The source code is released under GPLv3 license.
