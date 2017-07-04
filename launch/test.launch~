@@ -1,0 +1,30 @@
+<launch>
+
+  <!-- Bag -->
+  <!--node name="rosbag" 
+        pkg="rosbag" 
+        type="play" 
+        respawn="false"
+  args="-s 1 -r 1 $(env PWD)/../bag/20150814-outdoor-stereo/data2.bag"/-->
+  <!--args="-s 1 -r 1 $(env PWD)/../bag/ri_2015-08-20-20-39-49.bag"/>-->                 
+
+  <!-- VI-sensor -->
+  <node name="visensor_node" 
+        pkg="visensor_node" 
+        type="visensor_node" 
+        output="screen">
+  </node>  
+
+
+  <!-- Visual-inertial Estimator -->
+  <node pkg="dense_edge_imu"
+        name="dense_edge_imu"
+        type="live_slam"       
+        output="screen">
+    <!--remap from="~image"    to="/camera/abc"/-->
+    <param name="intrinsics_calibration_file"		value="$(find dense_edge_imu)/calib/combine2.yml"/>
+    <param name="extrinsics_calibration_file"		value="$(find dense_edge_imu)/calib/visensor.yml"/>
+    <!--rosparam file="$(env PWD)/../bag/20150814-outdoor-stereo/calibration.yaml"/-->
+  </node>  
+
+</launch>

@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+
+PACKAGE = "edge_imu_bias"
+
+from dynamic_reconfigure.parameter_generator_catkin import *
+
+gen = ParameterGenerator()
+# actual algorithm parameters
+
+gen.add("minUseGrad", double_t, 0, "Minimal Absolut Image Gradient for a Pixel to be used at all. Increase, if your camera has large image noise, Decrease if you have low image-noise and want to also exploit small gradients.", 5, 1, 50)
+gen.add("cameraPixelNoise", double_t, 0, "Image intensity noise used for e.g. tracking weight calculation. Sould be set larger than the actual sensor-noise, to also account for noise originating from discretization / linear interpolation.", 1.0, 1, 50)
+
+gen.add("KFUsageWeight", double_t, 0, "Determines how often Keyframes are taken, depending on the Overlap to the current Keyframe. Larger -> more Keyframes.", 4.0, 0.0, 20)
+gen.add("KFDistWeight", double_t, 0, "Determines how often Keyframes are taken, depending on the Distance to the current Keyframe. Larger -> more Keyframes.", 3.0, 0.0, 20)
+gen.add("maxLoopClosureCandidates", int_t, 0, "Maximal of Loop-Closures that are tracked initially for each new keyframe.", 10, 0, 50)
+
+gen.add("enableGaussianNewtonOptimization", bool_t, 0, "enableGaussianNewtonOptimization", True)
+gen.add("gaussianNewtonIterationNum", int_t, 0, "gaussianNewtonIterationNum", 10, 1, 50)
+gen.add("subGradientIterationNum", int_t, 0, "subGradientIterationNum", 40, 10, 100)
+gen.add("pyramidLevelInUse", int_t, 0, "pyramidLevelInUse", 3, 1, 4)
+gen.add("enableLoopClosure", bool_t, 0, "enableLoopClosure", False)
+gen.add("visaulizeGraphStructure", bool_t, 0, "visaulizeGraphStructure", False)
+gen.add("printDebugInfo", bool_t, 0, "printDebugInfo", True)
+gen.add("visualizeTrackingDebug", bool_t, 0, "visualizeTrackingDebug", True)
+gen.add("pubPointCloud", bool_t, 0, "pubPointCloud", False)
+gen.add("pubTF", bool_t, 0, "pubTF", True)
+gen.add("pubKeyFrameOdom", bool_t, 0, "pubKeyFrameOdom", False)
+gen.add("enableCrossCheckTracking", bool_t, 0, "enableCrossCheckTracking", False)
+gen.add("trustTrackingErrorThreshold", double_t, 0, "trustTrackingErrorThreshold", 5.0, 1, 100 )
+gen.add("cannyThreshold1", int_t, 0, "cannyThreshold1", 100, 1, 255 )
+gen.add("cannyThreshold2", int_t, 0, "cannyThreshold2", 200, 1, 255 )
+gen.add("enable_histogramEqualization", bool_t, 0, "enable_histogramEqualization", False)
+gen.add("edgeProportion", double_t, 0, "edgeProportion", 1.0, 0.0, 5.0)
+
+exit(gen.generate(PACKAGE, "edge_imu_bias", "Params"))

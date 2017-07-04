@@ -1,0 +1,27 @@
+<launch>
+
+  <!-- VI-sensor -->
+  <node name="visensor_node" 
+        pkg="visensor_node" 
+        type="visensor_node" 
+        output="screen">
+  </node>  
+
+  <!-- Visual-inertial Estimator -->
+  <node pkg="dense_edge_imu"
+        name="dense_edge_imu"
+        type="slam"       
+        output="screen">
+    <!--remap from="~image"    to="/camera/abc"/-->
+    <param name="intrinsics_calibration_file"		value="$(find dense_edge_imu)/calib/combine2.yml"/>
+    <param name="extrinsics_calibration_file"		value="$(find dense_edge_imu)/calib/visensor.yml"/>
+    <param name="skipFrameNum"				value= "2"/>
+    <param name="onUAV"					value= "false"/>
+    <param name="enable_histogramEqualization"		value= "false"/>
+    <param name="errorTranslationThreshold"		value= "0.3"/>
+    <param name="errorAngleThreshold"			value= "0.1"/>
+    <param name="adaptiveCannyThreshold"		value= "false"/>
+    <!--rosparam file="$(env PWD)/../bag/20150814-outdoor-stereo/calibration.yaml"/-->
+  </node>  
+
+</launch>
