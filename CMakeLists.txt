@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(edge_imu_bias)
 
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SSE_FLAGS} -g -fopenmp -Wall -mavx -ffast-math -std=c++11 -Ofast -pipe -march=native -mtune=native")
-SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${SSE_FLAGS} -g -fopenmp -Ofast -march=native -mtune=native -pipe -Wall")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${SSE_FLAGS} -std=c++11")
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${SSE_FLAGS} ")
 SET(EIGEN_INCLUDE_DIR "/usr/include/eigen3")
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}")
 

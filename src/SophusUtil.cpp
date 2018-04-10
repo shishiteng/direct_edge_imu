@@ -18,8 +18,8 @@
 * along with LSD-SLAM. If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "sophus/se3.hpp"
-#include "sophus/sim3.hpp"
+#include "/home/sst/catkin_ws_master/src/direct_edge_imu/thirdparty/sophus/se3.hpp"
+#include "/home/sst/catkin_ws_master/src/direct_edge_imu/thirdparty/sophus/sim3.hpp"
 
 // Compile the templates here once so they don't need to be compiled in every
 // other file using them.

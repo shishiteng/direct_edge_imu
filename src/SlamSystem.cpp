@@ -681,7 +681,7 @@ void SlamSystem::para2eigen()
     Vector3d cur_R0 = Utility::R2ypr(Rs[0]);
     ROS_INFO("current R %lf %lf %lf", cur_R0.x(), cur_R0.y(), cur_R0.z());
 
-#if 1
+#if 0
     ROS_ASSERT((origin_P0 - cur_P0).norm() < 1e-6);
     ROS_ASSERT((origin_R0.x() - cur_R0.x()) < 1e-6);
 #endif
@@ -1030,6 +1030,7 @@ void SlamSystem::solve_ceres()
         {
             int j = i + 1;
             if ( imu_factors[j] == nullptr ){
+		//fprintf(stderr,"imu_factor null %d",i);
                 continue ;
             }
             problem.AddResidualBlock(imu_factors[j], NULL,
@@ -1474,7 +1475,7 @@ void SlamSystem::trackFrameDense(cv::Mat image0, unsigned int frameID,
 
     // Keyframe selection
     createNewKeyFrame = false ;
-    //printf("tracking_lastGoodPerTotal = %f\n", tracking_lastGoodPerTotal ) ;
+    printf("tracking_lastGoodPerTotal = %f\n", tracking_lastGoodPerTotal ) ;
     if ( trackingReference->keyframe->numFramesTrackedOnThis > MIN_NUM_MAPPED )
     {
         Eigen::Vector3d dist = RefToFrame.translation() * currentKeyFrame->meanIdepth;

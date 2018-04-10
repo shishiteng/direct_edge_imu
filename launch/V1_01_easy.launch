@@ -5,7 +5,7 @@
         pkg="rosbag" 
         type="play" 
         respawn="false"
-        args="-s 1 -r 1 /home/ygling2008/testdata/euroc_dataset/V1_01_easy/V1_01_easy.bag">
+        args="-s 1 -r 1 /home/sst/work/data/dataset/euroc_sequences/V1_01_easy.bag">
   </node> 
 
   <!-- Visual-inertial Estimator -->

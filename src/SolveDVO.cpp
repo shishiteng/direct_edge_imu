@@ -1599,7 +1599,7 @@ void SolveDVO::printPose(geometry_msgs::Pose &rospose, const char *msg, std::ost
     ROS_INFO( "%s : [ %.4lf %.4lf %.4lf %.4lf :: %.4lf %.4lf %.4lf ]", msg, rospose.orientation.x, rospose.orientation.y, rospose.orientation.z, rospose.orientation.w,
               rospose.position.x, rospose.position.y, rospose.position.z );
 
-    if( stream != std::cout )
+    //if( stream != std::cout )
     {
         //        ROS_ERROR( "PRINTING TO FILE" );
         stream<< rospose.orientation.x<< " "<< rospose.orientation.y<< " "<< rospose.orientation.z<< " "<< rospose.orientation.w<< " "<<

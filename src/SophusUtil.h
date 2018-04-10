@@ -20,8 +20,8 @@
 
 #pragma once
 
-#include "sophus/sim3.hpp"
-#include "sophus/se3.hpp"
+#include "/home/sst/catkin_ws_master/src/direct_edge_imu/thirdparty/sophus/sim3.hpp"
+#include "/home/sst/catkin_ws_master/src/direct_edge_imu/thirdparty/sophus/se3.hpp"
 //#define SOPHUS_USE_FLOAT
 
 

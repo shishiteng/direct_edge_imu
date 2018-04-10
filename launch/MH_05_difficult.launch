@@ -5,7 +5,7 @@
         pkg="rosbag" 
         type="play" 
         respawn="false"
-        args="-s 20 -r 1 /home/ygling2008/testdata/euroc_dataset/MH_05_difficult/MH_05_difficult.bag">
+        args="-s 20 -r 0.5 /home/sst/work/data/dataset/euroc_sequences/MH_05_difficult.bag">
   </node> 
 
   <!-- Visual-inertial Estimator -->
@@ -17,12 +17,12 @@
     <param name="intrinsics_calibration_file"		value="$(find edge_imu_bias)/calib/combine2.yml"/>
     <param name="extrinsics_calibration_file"		value="$(find edge_imu_bias)/calib/visensor.yml"/>
     <param name="skipFrameNum"				value= "0"/>
-    <param name="onUAV"					value= "false"/>
-    <param name="enable_histogramEqualization"		value= "false"/>
+    <param name="onUAV"					value= "true"/>
+    <param name="enable_histogramEqualization"		value= "true"/>
     <param name="errorTranslationThreshold"		value= "0.2"/>
     <param name="errorAngleThreshold"			value= "3"/>
     <param name="adaptiveCannyThreshold"		value= "true"/>
-    <param name="enable_LoopClosure"			value= "true"/>
+    <param name="enable_LoopClosure"			value= "false"/>
     <param name="frontMarginalization"			value= "true"/>
     <param name="loopClosureInterval"			value= "0"/>
     <param name="visualWeight"				value= "100"/>
@@ -36,9 +36,9 @@
     <param name="edgeIterationNum"			value= "10"/>
     <param name="huber_r_v"			value= "0.1"/>
     <param name="huber_r_w"			value= "10"/>
-    <param name="IMUorNot"			value= "false"/>
+    <param name="IMUorNot"			value= "true"/>
 
-        <param name="max_feature_cnt" type="int" value="200" />
+        <param name="max_feature_cnt" type="int" value="100" />
         <param name="num_of_iter" type="int" value="10" />
         <param name="calib_threshold_ric" type="double" value="0.0" />
         <param name="calib_threshold_tic" type="double" value="1.0" />

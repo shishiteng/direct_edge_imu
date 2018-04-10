@@ -58,15 +58,18 @@ int cntFrame1Num = 0 ;
 
 bool readEurocCalibration(string caliFilePath )
 {
+//cerr<<"11"<<endl;
     cv::FileStorage fs(caliFilePath.c_str(), cv::FileStorage::READ);
-
+//cerr<<"12"<<endl;
     cv::FileNode cameraNode = fs["cameras"];
     bool gotCalibration ;
     if (cameraNode.isSeq() && cameraNode.size() > 0)
     {
+//cerr<<"13"<<endl;
         int camIdx = 0;
         for (cv::FileNodeIterator it = cameraNode.begin();
              it != cameraNode.end(); ++it) {
+//cerr<<"14"<<endl;
             if ((*it).isMap()
                     && (*it)["T_SC"].isSeq()
                     && (*it)["image_dimension"].isSeq()
@@ -90,6 +93,7 @@ bool readEurocCalibration(string caliFilePath )
         ROS_INFO("Did not find a calibration in the configuration file.") ;
     }
 
+//cerr<<"15"<<endl;
     int image_width = 752;
     int image_height = 480;
     cv::Mat distortion_coefficients[2];
@@ -103,7 +107,7 @@ bool readEurocCalibration(string caliFilePath )
         {
 
             ROS_INFO("read camera %d calibration parameteres", camIdx ) ;
-
+//cerr<<"16"<<endl;
             cv::FileNode T_SC_node = (*it)["T_SC"];
 
             // extrinsics
@@ -134,6 +138,7 @@ bool readEurocCalibration(string caliFilePath )
         }
     }
 
+//cerr<<"17"<<endl;
     cv::Mat K0(3, 3, CV_64F ) ;
     cv::Mat K1(3, 3, CV_64F ) ;
     K0.setTo(0.0) ;
@@ -160,7 +165,7 @@ bool readEurocCalibration(string caliFilePath )
         }
         t01.at<double>(i, 0) = T01(i, 3) ;
     }
-
+//cerr<<"18"<<endl;
     cv::Mat R0, P0, R1, P1, Q ;
     cv::Rect validRoi[2];
     cv::Size imageSize(image_width, image_height) ;
@@ -170,12 +175,16 @@ bool readEurocCalibration(string caliFilePath )
 
     cv::initUndistortRectifyMap(K0, distortion_coefficients[0], R0, P0, imageSize, CV_16SC2, map00_, map01_);
     cv::initUndistortRectifyMap(K1, distortion_coefficients[1], R1, P1, imageSize, CV_16SC2, map10_, map11_);
-
+//cerr<<"19"<<endl;
     calib_par.fx[0] = P0.at<double>(0, 0)/2.0 ;
     calib_par.fy[0] = P0.at<double>(1, 1)/2.0 ;
     calib_par.cx[0] = (P0.at<double>(0, 2)+0.5)/2.0 - 0.5 ;
     calib_par.cy[0] = (P0.at<double>(1, 2)+0.5)/2.0 - 0.5 ;
+//cerr<<"191"<<endl;
     for( int i = 0 ; i < 4; i++ ){
+//cerr<<"191 d"<<i<<endl;
+//cerr<<distortion_coefficients[0];
+//cerr<<distortion_coefficients[1];
         calib_par.d[i] = distortion_coefficients[0].at<double>(0, i) ;
     }
 
@@ -183,6 +192,7 @@ bool readEurocCalibration(string caliFilePath )
     calib_par.height[0] = image_height/2 ;
     for( int i = 1 ; i < PYRAMID_LEVELS; i++ )
     {
+//cerr<<"191 i:"<<i<<endl;
         calib_par.fx[i] = calib_par.fx[i-1]/2.0 ;
         calib_par.fy[i] = calib_par.fy[i-1]/2.0 ;
         calib_par.cx[i] = (calib_par.cx[i-1]+0.5)/2.0 - 0.5 ;
@@ -190,7 +200,7 @@ bool readEurocCalibration(string caliFilePath )
         calib_par.width[i] = calib_par.width[i-1]/2 ;
         calib_par.height[i] = calib_par.height[i-1]/2 ;
     }
-
+//cerr<<"20"<<endl;
     Eigen::Matrix4d T_i2c = T_c2i[0].inverse() ;
     for( int i = 0 ; i < 3; i++ )
     {
@@ -200,7 +210,7 @@ bool readEurocCalibration(string caliFilePath )
         }
         calib_par.T_i_2_c(i) = T_i2c(i, 3) ;
     }
-
+//cerr<<"21"<<endl;
     return true ;
 }
 
@@ -344,7 +354,9 @@ void image0CallBack(const sensor_msgs::ImageConstPtr& msg)
     {
         ros::Time tImage = msg->header.stamp;
         cv::Mat image ;
+//cerr<<"image0CallBack:0"<<endl;
         convertMsgToMatMono(msg, image) ;
+//cerr<<"image0CallBack:1"<<endl;
         cv::Mat imgRect ;
 
         //cout << "image0" << tImage << endl ;
@@ -377,7 +389,9 @@ void image1CallBack(const sensor_msgs::ImageConstPtr& msg)
     ros::Time tImage = msg->header.stamp;
     //cout << "image1 " << tImage << endl ;
     cv::Mat image ;
+//cerr<<"image1CallBack:0"<<endl;
     convertMsgToMatMono(msg, image) ;
+//cerr<<"image1CallBack:1"<<endl;
     cv::Mat imgRect ;
 
     //imgRect = image ;
@@ -399,6 +413,7 @@ void image1CallBack(const sensor_msgs::ImageConstPtr& msg)
 
 void imuCallback2(const sensor_msgs::ImuConstPtr& msg)
 {
+//cerr<<"imuCallback2:0"<<endl;
     visensor_node::visensor_imu imu_msg ;
     imu_msg.angular_velocity = msg->angular_velocity ;
     imu_msg.linear_acceleration.x = msg->linear_acceleration.x ;
@@ -409,23 +424,30 @@ void imuCallback2(const sensor_msgs::ImuConstPtr& msg)
     globalLiveSLAM->imu_queue_mtx.lock();
     globalLiveSLAM->imuQueue.push_back( imu_msg );
     globalLiveSLAM->imu_queue_mtx.unlock();
+//cerr<<"imuCallback2:1"<<endl;
 }
 
 void imuCallBack(const visensor_node::visensor_imu& imu_msg )
 {
+//cerr<<"imuCallback:0"<<endl;
     globalLiveSLAM->imu_queue_mtx.lock();
     globalLiveSLAM->imuQueue.push_back( imu_msg );
     globalLiveSLAM->imu_queue_mtx.unlock();
+//cerr<<"imuCallback:0"<<endl;
 }
 
 void process_image()
 {
+cerr<<"process_image:start"<<endl;
     globalLiveSLAM->Loop();
+cerr<<"process_image:end"<<endl;
 }
 
 void process_BA()
 {
+cerr<<"process_BA:start"<<endl;
     globalLiveSLAM->BALoop();
+cerr<<"process_BA:end"<<endl;
 }
 
 /*
@@ -492,6 +514,8 @@ int main( int argc, char** argv )
     ROS_INFO("EIGEN_DONT_PARALLELIZE");
 #endif
 
+    //cerr<<"1"<<endl;
+
     dynamic_reconfigure::Server<edge_imu_bias::ParamsConfig> srv(ros::NodeHandle("~"));
     srv.setCallback(dynConfCb);
 
@@ -500,7 +524,7 @@ int main( int argc, char** argv )
     string euroc_calibration_file ;
 
     //string packagePath = ros::package::getPath("edge_imu_bias")+"/";
-    string packagePath = "/home/ygling2008/catkin_ws/src/edge_imu_bias/" ;
+    string packagePath = "/home/sst/catkin_ws_master/src/direct_edge_imu/" ;
     nh.param("intrinsics_calibration_file", intrinsics_calibration_file, packagePath+"/calib/combine2_icra.yml" ) ;
     nh.param("extrinsics_calibration_file", extrinsics_calibration_file, packagePath+"/calib/visensor.yml" ) ;
     nh.param("euroc_calibration_file", euroc_calibration_file, packagePath+"/calib/config_euroc.yaml" ) ;
@@ -532,10 +556,13 @@ int main( int argc, char** argv )
         huber_r_v *= 3.0 ;
         huber_r_w *= 3.0 ;
     }
+
+//cerr<<"2"<<endl;
+
     readEurocCalibration(euroc_calibration_file) ;
     //readCalibrationIntrisics( intrinsics_calibration_file ) ;
     //readCalibrationExtrinsics( extrinsics_calibration_file );
-
+//cerr<<"3"<<endl;
     cntFrame0Num = cntFrame1Num = 0 ;
     //sub_image[0] = nh.subscribe("/cam1/image_raw", 100, &image0CallBack );
     //sub_image[1] = nh.subscribe("/cam0/image_raw", 100, &image1CallBack );
@@ -544,11 +571,14 @@ int main( int argc, char** argv )
     sub_image[1] = nh.subscribe("/cam1/image_raw", 100, &image1CallBack );
     sub_imu = nh.subscribe("/imu0", 1000, &imuCallback2 ) ;
 
+//cerr<<"4"<<endl;
     LiveSLAMWrapper slamNode(packagePath, nh, &calib_par );
     globalLiveSLAM = &slamNode ;
     globalLiveSLAM->popAndSetGravity( skipFrameNum );
     boost::thread ptrProcessImageThread = boost::thread(&process_image);
     boost::thread ptrProcessBAThread = boost::thread(&process_BA);
+
+//cerr<<"4"<<endl;
 
     ros::spin() ;
     ptrProcessImageThread.join();

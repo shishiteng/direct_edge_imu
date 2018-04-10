@@ -132,7 +132,7 @@ void LiveSLAMWrapper::popAndSetGravity( int skipFrameNum )
         currentIMU_iter = imuQueue.begin() ;
         while( currentIMU_iter->header.stamp < tImage )
         {
-            cout << "currentIMU_iter->header.stamp " << currentIMU_iter->header.stamp << "\n" ;
+            //cout << "currentIMU_iter->header.stamp " << currentIMU_iter->header.stamp << "\n" ;
             imuNum++;
             gravity_b0(0) += currentIMU_iter->linear_acceleration.x;
             gravity_b0(1) += currentIMU_iter->linear_acceleration.y;
@@ -404,7 +404,7 @@ void LiveSLAMWrapper::BALoop()
         if ( ttt < 0 ){
             ttt += frameInfoListSize ;
         }
-        //printf("[BA thread] sz=%d\n", ttt ) ;
+        printf("[BA thread] sz=%d\n", ttt ) ;
         if ( ttt < 1 ){
             Odometry->frameInfoList_mtx.unlock();
             BARate.sleep() ;
@@ -862,7 +862,6 @@ void LiveSLAMWrapper::Loop()
         Odometry->tracking_mtx.lock();
         bool tmpFlag = Odometry->lock_densetracking ;
         Odometry->tracking_mtx.unlock();
-        //printf("tmpFlag = %d\n", tmpFlag ) ;
         if ( tmpFlag == true ){
             r.sleep() ;
             continue ;
